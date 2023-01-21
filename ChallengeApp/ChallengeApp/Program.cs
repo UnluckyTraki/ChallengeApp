@@ -16,5 +16,5 @@ else if (age < 18 && sex == 'M')
 }
 else if (name == "Wiktor" && sex == 'M' && age < 30)
 {
-    Console.WriteLine("Wiktor, lat 28, płeć: mężczyzna.");
+    Console.WriteLine($"{name}, lat {age}, płeć: mężczyzna.");
 }

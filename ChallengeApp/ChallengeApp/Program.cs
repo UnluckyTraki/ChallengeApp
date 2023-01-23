@@ -1,20 +1,28 @@
-﻿string name = "Wiktor";
-char sex = 'M';
-int age = 28;
+﻿Console.WriteLine("Podaj liczbę:");
+var number = Console.ReadLine();
+char[] letters = number.ToArray();
 
-if (sex == 'K' && age < 30)
+List <char> digits = new List <char>();
+digits.Add('0');
+digits.Add('1');
+digits.Add('2');
+digits.Add('3');
+digits.Add('4');
+digits.Add('5');
+digits.Add('6');
+digits.Add('7');
+digits.Add('8');
+digits.Add('9');
+
+foreach (char d in digits)
 {
-    Console.WriteLine("Kobieta poniżej 30 lat.");
+    var count = 0;
+    foreach (char l in letters)
+    {
+       if (d == l) count++; 
+    }
+    Console.WriteLine($"Ilość {d} => {count}");
 }
-else if (name == "Ewa" && age == 33)
-{
-    Console.WriteLine("Ewa, lat 33.");
-}
-else if (age < 18 && sex == 'M')
-{
-    Console.WriteLine("Niepełnoletni Mężczyzna");
-}
-else if (name == "Wiktor" && sex == 'M' && age < 30)
-{
-    Console.WriteLine($"{name}, lat {age}, płeć: mężczyzna.");
-}
+
+
+

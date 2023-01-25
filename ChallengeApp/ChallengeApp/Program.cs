@@ -1,28 +1,53 @@
-﻿Console.WriteLine("Podaj liczbę:");
-var number = Console.ReadLine();
-char[] letters = number.ToArray();
+﻿using ChallengeApp;
 
-List <char> digits = new List <char>();
-digits.Add('0');
-digits.Add('1');
-digits.Add('2');
-digits.Add('3');
-digits.Add('4');
-digits.Add('5');
-digits.Add('6');
-digits.Add('7');
-digits.Add('8');
-digits.Add('9');
+Employee emp1 = new Employee("Wiktor", "P", 29);
+Employee emp2 = new Employee("Adam", "K", 33);
+Employee emp3 = new Employee("Maja", "P", 28);
 
-foreach (char d in digits)
+emp1.AddScore(5);
+emp1.AddScore(10);
+emp1.AddScore(1);
+emp1.AddScore(8);
+emp1.AddScore(6);
+
+emp2.AddScore(1);
+emp2.AddScore(3);
+emp2.AddScore(8);
+emp2.AddScore(8);
+emp2.AddScore(2);
+
+emp3.AddScore(9);
+emp3.AddScore(10);
+emp3.AddScore(5);
+emp3.AddScore(3);
+emp3.AddScore(1);
+
+List <Employee> employees = new List<Employee>()
 {
-    var count = 0;
-    foreach (char l in letters)
+    emp1, emp2, emp3
+};
+
+var maxResult = 0;
+Employee employeeWithMaxResult = null;
+
+
+foreach (var emp in employees)
+{   
+    if (emp1.Result > maxResult)
     {
-       if (d == l) count++; 
+        employeeWithMaxResult = emp1;
+        maxResult = emp1.Result;
     }
-    Console.WriteLine($"Ilość {d} => {count}");
+    else if (emp2.Result > maxResult)
+    {
+        employeeWithMaxResult = emp2;
+        maxResult = emp2.Result;
+    }
+    if (emp3.Result > maxResult)
+    {
+        employeeWithMaxResult = emp3;
+        maxResult = emp3.Result;
+    }
+    
 }
-
-
-
+Console.WriteLine($"Największą ilość punktów: {maxResult} uzyskał/a {employeeWithMaxResult.FullInfo} lat.");

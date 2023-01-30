@@ -34,6 +34,5 @@
         {
             this.score.Add(number);
         }
-
     }
 }

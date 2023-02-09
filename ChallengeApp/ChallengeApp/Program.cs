@@ -14,8 +14,11 @@ Console.WriteLine();
 Console.WriteLine("Wiek: ");
 var age = int.Parse(Console.ReadLine());
 Console.WriteLine();
+Console.WriteLine("Płeć: ");
+var sex = Console.ReadLine();
+Console.WriteLine();
 
-var emp = new Employee(name, surname, age);
+var emp = new Employee(name, surname, age, sex);
 
 while (true) 
 {

@@ -1,4 +1,5 @@
 ﻿using ChallengeApp;
+using System.Linq.Expressions;
 
 Console.WriteLine("Witamy w programie do oceny pracowników.");
 Console.WriteLine("=========================================");
@@ -24,12 +25,19 @@ while (true)
     {
         break;
     }
-    emp.AddGrade(input);
+
+    try
+    {
+        emp.AddGrade(input);
+    }
+    catch(Exception e)
+    {
+        Console.WriteLine($"Exception catched: {e.Message}");
+    }
 }
 
 var stats = emp.GetStatistics();
 Console.WriteLine($"Wyniki pracownika: {emp.FullInfo}: ");
-
 Console.WriteLine($"Najniższa ocena: {stats.Min}");
 Console.WriteLine($"Najwyższa ocena: {stats.Max}");
 Console.WriteLine($"Średnia ocen: {stats.Average}");

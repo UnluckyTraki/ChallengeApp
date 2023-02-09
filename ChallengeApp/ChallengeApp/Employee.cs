@@ -1,27 +1,24 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace ChallengeApp
+﻿namespace ChallengeApp
 {
     public class Employee
     {
-        public List<float> grades = new List<float>();
+        private List<float> grades = new List<float>();
         public Employee(string name, string surname, int age)
         {
-            this.name = name;
-            this.surname = surname;
-            this.age = age;
+            this.Name = name;
+            this.Surname = surname;
+            this.Age = age;
         }
 
-        public string name { get; private set; }
-        public string surname { get; private set; }
-        public int age { get; private set; }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public int Age { get; private set; }
 
         public string FullInfo
         {
             get
             {
-                return this.name + " " + this.surname + " " + this.age;
+                return this.Name + " " + this.Surname + " " + this.Age;
             }
         }
         public void AddGrade(float grade)
@@ -32,7 +29,7 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine("Invalid grade value");
+                throw new Exception("Invalid grade value");
             }
         }
         public void AddGrade(char grade)
@@ -55,31 +52,10 @@ namespace ChallengeApp
                     this.grades.Add(20);
                     break;
                 default:
-                    Console.WriteLine("Wrong Letter");
-                    this.grades.Add(0);
-                break;
+                    throw new Exception("Wrong letter.");
             }
         }
-    //public void AddGrade(double grade)
-    //{
-    //    var valueInDouble = (float)grade;
-    //    this.AddGrade(valueInDouble);
-    //}
-    //public void AddGrade(long grade)
-    //{
-    //    var valueInLong = (float)grade;
-    //    this.AddGrade(valueInLong);
-    //}
-    //public void AddGrade(short grade)
-    //{
-    //    var valueInShort = (float)grade;
-    //    this.AddGrade(valueInShort);
-    //}
-    //public void AddGrade(int grade)
-    //{
-    //    var valueInInt = (float)grade;
-    //    this.AddGrade(valueInInt);
-    //}
+ 
     public void AddGrade(string grade)
         {
             if (float.TryParse(grade, out float result))
@@ -88,7 +64,7 @@ namespace ChallengeApp
             }
             else
             {
-                Console.WriteLine("String is not a float.");
+                throw new Exception("String is not a float.");
             }
         }
        

@@ -1,4 +1,5 @@
 ﻿using ChallengeApp;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 Console.WriteLine("Witamy w programie do oceny pracowników.");
@@ -12,13 +13,13 @@ Console.WriteLine("Nazwisko: ");
 var surname = Console.ReadLine();
 Console.WriteLine();
 Console.WriteLine("Wiek: ");
-var age = int.Parse(Console.ReadLine());
+bool success = int.TryParse(Console.ReadLine(), out int age);
 Console.WriteLine();
 Console.WriteLine("Płeć: ");
 var sex = Console.ReadLine();
 Console.WriteLine();
 
-var emp = new Employee(name, surname, age, sex);
+var emp = new Supervisor(name, surname, age, sex);
 
 while (true) 
 {

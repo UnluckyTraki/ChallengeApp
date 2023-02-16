@@ -61,7 +61,11 @@ namespace ChallengeApp
                     throw new Exception("Wrong letter.");
             }
         }
-
+        public void AddGrade(int grade)
+        {
+            var valueInInt = (float)grade;
+            this.AddGrade(valueInInt);
+        }
         public void AddGrade(string grade)
         {
             int signMath = 0;

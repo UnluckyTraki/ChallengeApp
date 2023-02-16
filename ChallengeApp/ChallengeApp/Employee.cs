@@ -22,6 +22,11 @@
                 return this.Name + " " + this.Surname + " " + this.Age + " " + this.Sex;
             }
         }
+        public void AddGrade(int grade)
+        {
+            var valueInInt = (float)grade;
+            this.AddGrade(valueInInt);
+        }
         public void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100) 
@@ -51,6 +56,9 @@
                     break;
                 case 'E':
                     this.grades.Add(20);
+                    break;
+                case 'F':
+                    this.grades.Add(0);
                     break;
                 default:
                     throw new Exception("Wrong letter.");

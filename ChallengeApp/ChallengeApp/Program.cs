@@ -19,32 +19,38 @@ Console.WriteLine("Płeć: ");
 var sex = Console.ReadLine();
 Console.WriteLine();
 
-var emp = new EmployeeInFile(name, surname, age, sex);
+var emp = new EmployeeInMemory(name, surname, age, sex);
+emp.GradeAdded += EmpGradeAdded;
 
-//while (true) 
-//{
-//    Console.WriteLine("Podaj ocenę pracownika od 0 do 100 (q - wynik): ");
-//    var input = Console.ReadLine();
-//    if (input == "q")
-//    {
-//        break;
-//    }
+void EmpGradeAdded(object sender, EventArgs args)
+{
+    Console.WriteLine("Dodano nową ocenę");
+}
 
-//    try
-//    {
-//        emp.AddGrade(input);
-//    }
-//    catch(Exception e)
-//    {
-//        Console.WriteLine($"Exception catched: {e.Message}");
-//    }
-//}
+while (true) 
+{
+    Console.WriteLine("Podaj ocenę pracownika od 0 do 100 (q - wynik): ");
+    var input = Console.ReadLine();
+    if (input == "q")
+    {
+        break;
+    }
 
-//var stats = emp.GetStatistics();
-//Console.WriteLine($"Wyniki pracownika: {emp.FullInfo}: ");
-//Console.WriteLine($"Najniższa ocena: {stats.Min}");
-//Console.WriteLine($"Najwyższa ocena: {stats.Max}");
-//Console.WriteLine($"Średnia ocen: {stats.Average}");
-//Console.WriteLine($"Ocena końcowa: {stats.AverageLetter}");
+    try
+    {
+        emp.AddGrade(input);
+    }
+    catch(Exception e)
+    {
+        Console.WriteLine($"Exception catched: {e.Message}");
+    }
+}
+
+var stats = emp.GetStatistics();
+Console.WriteLine($"Wyniki pracownika: {emp.FullInfo}: ");
+Console.WriteLine($"Najniższa ocena: {stats.Min}");
+Console.WriteLine($"Najwyższa ocena: {stats.Max}");
+Console.WriteLine($"Średnia ocen: {stats.Average}");
+Console.WriteLine($"Ocena końcowa: {stats.AverageLetter}");
 
 

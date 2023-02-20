@@ -4,11 +4,19 @@
     {
         private const string fileName = "grades.txt";
 
+        public override event GradeAddedDelegate GradeAdded;
         public EmployeeInFile(string name, string surname, int age, string sex)
             : base(name, surname, age, sex)
         {
         }
 
+        public string FullInfo
+        {
+            get
+            {
+                return this.Name + " " + this.Surname + " " + this.Age + " " + this.Sex;
+            }
+        }
         public override void AddGrade(float grade)
         {
             using (var writer = File.AppendText(fileName))
@@ -16,6 +24,11 @@
                 if (grade >= 0 && grade <= 100)
                 {
                     writer.WriteLine(grade);
+
+                    if (GradeAdded != null)
+                    {
+                        GradeAdded(this, new EventArgs());
+                    }
                 }
                 else
                 {

@@ -1,7 +1,9 @@
-﻿namespace ChallengeApp
+﻿using static ChallengeApp.EmployeeBase;
+
+namespace ChallengeApp
 {
     // co bedzie zaimplementowane
-    internal interface IEmployee
+    public interface IEmployee
     {
         string Name { get; }
         string Surname { get; }
@@ -13,6 +15,8 @@
         void AddGrade(char grade);
         void AddGrade(string grade);
         void AddGrade(int grade);
+
+        event GradeAddedDelegate GradeAdded;
         Statistics GetStatistics();
     }
 }

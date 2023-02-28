@@ -19,11 +19,13 @@
         }
         public override void AddGrade(float grade)
         {
-            using (var writer = File.AppendText(fileName))
             {
                 if (grade >= 0 && grade <= 100)
                 {
-                    writer.WriteLine(grade);
+                    using (var writer = File.AppendText(fileName))
+                    {
+                        writer.WriteLine(grade);
+                    }
 
                     if (GradeAdded != null)
                     {
@@ -39,45 +41,47 @@
 
         public override void AddGrade(char grade)
         {
-            using (var writer = File.AppendText(fileName))
-            {
                 switch (grade)
                 {
                     case 'A':
-                        writer.WriteLine(100);
+                    case 'a':
+                        this.AddGrade(100);
                         break;
                     case 'B':
-                        writer.WriteLine(80);
+                    case 'b':
+                        this.AddGrade(80);
                         break;
                     case 'C':
-                        writer.WriteLine(60);
+                    case 'c':
+                        this.AddGrade(60);
                         break;
                     case 'D':
-                        writer.WriteLine(40);
+                    case 'd':
+                        this.AddGrade(40);
                         break;
                     case 'E':
-                        writer.WriteLine(20);
+                    case 'e':
+                        this.AddGrade(20);
                         break;
                     case 'F':
-                        writer.WriteLine(0);
+                    case 'f':
+                        this.AddGrade(0);
                         break;
                     default:
                         throw new Exception("Wrong letter.");
                 }
-            }
         }
 
         public override void AddGrade(string grade)
         {
-            using (var writer = File.AppendText(fileName))
             {
                 if (float.TryParse(grade, out float result))
                 {
-                    writer.WriteLine(result);
+                    this.AddGrade(result);
                 }
                 else if (char.TryParse(grade, out char character))
                 {
-                    writer.WriteLine(character);
+                    this.AddGrade(character);
                 }
                 else
                 {
@@ -88,16 +92,19 @@
 
         public override void AddGrade(int grade)
         {
-            using (var writer = File.AppendText(fileName))
-            {
                 var valueInInt = (float)grade;
-                writer.WriteLine(valueInInt);
-            }
+                this.AddGrade(valueInInt);
         }
         public override Statistics GetStatistics()
         {
             var gradesFromFile = this.ReadGradesFromFile();
-            var statistics = this.CountStatistics(gradesFromFile);
+            var statistics = new Statistics();
+
+            foreach (var grade in gradesFromFile)
+            {
+                statistics.AddGrade(grade);
+            }
+
             return statistics;
         }
         private List<float> ReadGradesFromFile()
@@ -109,62 +116,29 @@
                 using (var reader = File.OpenText($"{fileName}"))
                 {
                     var line = reader.ReadLine();
+
                     while (line != null)
                     {
-                        var number = float.Parse(line);
-                        grades.Add(number);
+                        if (float.TryParse(line, out float number))
+                        {
+                            if (number >= 0 && number <= 100)
+                            {
+                                grades.Add(number);
+                            }
+                            else
+                            {
+                                throw new Exception($"Value of grade {number} from file {fileName} is not valid.");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception("Invalid grade format in file {fileName}");
+                        }
                         line = reader.ReadLine();
                     }
                 }
             }
             return grades;
-        }
-
-        private Statistics CountStatistics(List<float> grades)
-        {
-            var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Min = float.MaxValue;
-            statistics.Max = float.MinValue;
-
-            foreach (var grade in grades)
-            {
-                if (grade >= 0)
-                { 
-                    statistics.Max = Math.Max(statistics.Max, grade);
-                    statistics.Min = Math.Min(statistics.Min, grade);
-                    statistics.Average += grade;
-                }
-            }
-        
-
-            statistics.Average /= grades.Count;
-
-            switch (statistics.Average)
-            {
-                case var average when average >= 90:
-                    statistics.AverageLetter = 'A';
-                    break;
-                case var average when average >= 70 && average < 90:
-                    statistics.AverageLetter = 'B';
-                    break;
-                case var average when average >= 50 && average < 70:
-                    statistics.AverageLetter = 'C';
-                    break;
-                case var average when average >= 30 && average < 50:
-                    statistics.AverageLetter = 'D';
-                    break;
-                case var average when average >= 10 && average < 30:
-                    statistics.AverageLetter = 'E';
-                    break;
-                case var average when average < 10:
-                    statistics.AverageLetter = 'F';
-                    break;
-            }
-             
-            return statistics;
-        }
-            
-    }
-        
+        }     
+    }    
 }

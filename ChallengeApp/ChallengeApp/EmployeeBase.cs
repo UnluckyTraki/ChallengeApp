@@ -17,7 +17,7 @@
         public int Age { get; private set; }
         public string Sex { get; private set; }
 
-        public string FullInfo {get; }
+        public string FullInfo { get; private set; }
 
         public abstract void AddGrade(float grade);
 

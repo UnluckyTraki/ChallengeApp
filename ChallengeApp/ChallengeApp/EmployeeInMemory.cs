@@ -42,21 +42,27 @@
             switch (grade)
             {
                 case 'A':
+                case 'a':
                     this.grades.Add(100);
                     break;
                 case 'B':
+                case 'b':
                     this.grades.Add(80);
                     break;
                 case 'C':
+                case 'c':
                     this.grades.Add(60);
                     break;
                 case 'D':
+                case 'd':
                     this.grades.Add(40);
                     break;
                 case 'E':
+                case 'e':
                     this.grades.Add(20);
                     break;
                 case 'F':
+                case 'f':
                     this.grades.Add(0);
                     break;
                 default:
@@ -89,39 +95,10 @@
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Min = float.MaxValue;
-            statistics.Max = float.MinValue;
-
-            foreach (var grade in this.grades)
+            
+            foreach (var grade in this.grades) 
             {
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Average += grade;
-            }
-
-            statistics.Average /= this.grades.Count;
-
-            switch (statistics.Average)
-            {
-                case var average when average >= 90:
-                    statistics.AverageLetter = 'A';
-                    break;
-                case var average when average >= 70 && average < 90:
-                    statistics.AverageLetter = 'B';
-                    break;
-                case var average when average >= 50 && average < 70:
-                    statistics.AverageLetter = 'C';
-                    break;
-                case var average when average >= 30 && average < 50:
-                    statistics.AverageLetter = 'D';
-                    break;
-                case var average when average >= 10 && average < 30:
-                    statistics.AverageLetter = 'E';
-                    break;
-                case var average when average < 10:
-                    statistics.AverageLetter = 'F';
-                    break;
+                statistics.AddGrade(grade);
             }
 
             return statistics;
